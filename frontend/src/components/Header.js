@@ -1,5 +1,6 @@
 import { getUserInfo } from '../localStorage';
 import { parseRequestUrl } from '../utils';
+import HomeScreen from '../screens/HomeScreen.js';
 
 const Header = {
   render: () => {
@@ -15,7 +16,7 @@ const Header = {
   </div>
   <div class="search">
   <form class="search-form"  id="search-form">
-    <input type="text" name="q" id="q" value="${value || ''}" /> 
+    <input type="text" name="q" id="q" value="${value || ''}" placeholder="Pesquisar produto" /> 
     <button type="submit"><i class="fa fa-search"></i></button>
   </form>        
   </div>

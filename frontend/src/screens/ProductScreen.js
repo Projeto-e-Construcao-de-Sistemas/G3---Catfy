@@ -30,7 +30,7 @@ const ProductScreen = {
           if (data.error) {
             showMessage(data.error);
           } else {
-            showMessage('Review Added Successfully', () => {
+            showMessage('Avaliação enviada com sucesso!', () => {
               rerender(ProductScreen);
             });
           }
@@ -99,10 +99,10 @@ const ProductScreen = {
             </ul>
         </div>
       </div>
-      <!-- todo: review
+     
       <div class="content">
-      <h2>Reviews</h2>
-      ${product.reviews.length === 0 ? `<div>There is no review.</div>` : ''}  
+      <h2>Avaliações</h2>
+      ${product.reviews.length === 0 ? `<div>Ainda não há avaliações para esse produto.</div>` : ''}  
       <ul class="review">
       ${product.reviews
         .map(
@@ -113,13 +113,15 @@ const ProductScreen = {
             ${Rating.render({
               value: review.rating,
             })}
-              <div>
-              ${review.createdAt.substring(0, 10)}
-              </div>
             </div>
             <div>
             ${review.comment}
-            </div> -->
+            </div>
+            <div>
+            Avaliado em:
+            ${review.createdAt.substring(0, 10)}
+            </div>
+            
           </li>`
             
         )
@@ -133,30 +135,30 @@ const ProductScreen = {
             <div class="form-container">
             <form id="review-form">
               <ul class="form-items">
-              <li> <h3>Write a customer reviews</h3></li>
+              <li> <h3>Avalie o produto!</h3></li>
                 <li>
-                  <label for="rating">Rating</label>
+                  <label for="rating">Ranking</label>
                   <select required name="rating" id="rating">
-                    <option value="">Select</option>
-                    <option value="1">1 = Poor</option>
-                    <option value="2">2 = Fair</option>
-                    <option value="3">3 = Good</option>
-                    <option value="4">4 = Very Good</option>
-                    <option value="5">5 = Excellent</option>
+                    <option value="">Selecione:</option>
+                    <option value="1">1 = Ruim</option>
+                    <option value="2">2 = Regular</option>
+                    <option value="3">3 = Bom</option>
+                    <option value="4">4 = Muito bom</option>
+                    <option value="5">5 = Excelente</option>
                   </select>
                 </li>
                 <li>
-                  <label for="comment">Comment</label>
+                  <label for="comment">Comentário</label>
                   <textarea required  name="comment" id="comment" ></textarea>
                 </li>
                 <li>
-                  <button type="submit" class="primary">Submit</button>
+                  <button type="submit" class="primary">Enviar</button>
                 </li>
               </ul>
             </form>
             </div>`
             : ` <div>
-              Please <a href="/#/signin">Signin</a> to write a review.
+              Por favor, <b><a href="/#/signin">faça login</a></b> para enviar uma avaliação.
             </div>`
         }
       </li>
