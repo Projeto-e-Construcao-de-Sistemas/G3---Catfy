@@ -9,6 +9,7 @@ import orderRouter from './routers/orderRouter';
 import productRouter from './routers/productRouter';
 import uploadRouter from './routers/uploadRouter';
 import adoptionRouter from "./routers/adoptionRouter";
+import customizeRouter from "./routers/customizeRouter";
 
 mongoose
   .connect(config.MONGODB_URL, {
@@ -17,7 +18,7 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    console.log('Connected to mongodb.');
+    console.log('Conectado ao mongodb.');
   })
   .catch((error) => {
     console.log(error.reason);
@@ -29,6 +30,7 @@ app.use('/api/uploads', uploadRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/adoption', adoptionRouter);
+app.use('/api/customizeproduct', customizeRouter);
 app.use('/api/orders', orderRouter);
 app.get('/api/paypal/clientId', (req, res) => {
   res.send({ clientId: config.PAYPAL_CLIENT_ID });

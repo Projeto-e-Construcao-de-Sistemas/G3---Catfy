@@ -7,9 +7,9 @@ const adoptionSchema = new mongoose.Schema(
             image: { type: String, required: true },
             city: { type: String, required: true},
             relatedEmail: { type: String, required: true},
-            createdAt: { type: Date, expires: 60*60*24*7 , default: Date.now } //expirar depois de 7 dias
+            createdAt: { type: Date, expires: 60*60*24*7 , default: Date.now }, //expirar depois de 7 dias
     },
-    { timestamps: true, }
+    { timestamps: true }
 );
 const Adoption = mongoose.model('Adoption', adoptionSchema);
 

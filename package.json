@@ -1,48 +1,26 @@
 {
-  "name": "catfy",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "Catfy",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec babel-node backend/server.js",
-    "build": "rm -rf dist && babel backend -d dist && cd frontend && npm install && npm run build",
-    "data:import": "node backend/seeder",
-    "serve": "node dist/server.js",
-    "heroku-prebuild": "cd frontend && npm install --dev"
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
+    "start": "webpack-dev-server --watch-content-base --open",
+    "build": "webpack --mode=production --output ./main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": ""
-  },
-  "homepage": "",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-async-handler": "^1.1.4",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.21",
-    "multer": "^1.4.2"
-  },
   "devDependencies": {
-    "@babel/cli": "^7.10.3",
-    "@babel/core": "^7.10.3",
-    "@babel/node": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "eslint": "^7.3.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "nodemon": "^2.0.4"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
-  "engines": {
-    "node": ">=12.4.0",
-    "npm": ">=6.9.0"
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "antd": "^4.21.3",
+    "axios": "^0.19.2",
+    "chartist": "^0.11.4",
+    "dotenv": "^16.0.1",
+    "react-icons": "^4.4.0"
   }
 }

@@ -23,8 +23,8 @@ adoptionRouter.get(
 adoptionRouter.get(
     '/:id',
     expressAsyncHandler(async (req, res) => {
-        const product = await Product.findById(req.params.id);
-        res.send(product);
+        const adoption = await Adoption.findById(req.params.id);
+        res.send(adoption);
     })
 );
 
@@ -33,11 +33,11 @@ adoptionRouter.post(
     isAuth,
     expressAsyncHandler(async (req, res) => {
         const adoption = new Adoption({
-            name: "gatinho fofo",
-            description: "gatinho com apenas 2 meses, vermifugado",
-            image: "https://blog.cobasi.com.br/wp-content/uploads/2022/01/gato-filhote-de-2-meses-pode-ficar-sozinho-meio.jpg",
-            city: "Rio de Janeiro",
-            relatedEmail: "meu+email@email.com"
+            name: 'gatinho fofo',
+            description: 'gatinho com apenas 2 meses, vermifugado',
+            image: 'https://blog.cobasi.com.br/wp-content/uploads/2022/01/gato-filhote-de-2-meses-pode-ficar-sozinho-meio.jpg',
+            city: 'Rio de Janeiro',
+            relatedEmail: 'meu+email@email.com',
         });
         const createdAdoption = await adoption.save();
         if (createdAdoption) {
@@ -57,10 +57,10 @@ adoptionRouter.put(
         const adoption = await Adoption.findById(adoptionId);
         if (adoption) {
             adoption.name = req.body.name;
-            adoption.description = req.body.price;
+            adoption.description = req.body.description;
             adoption.image = req.body.image;
-            adoption.city = req.body.brand;
-            adoption.relatedEmail = req.body.category;
+            adoption.city = req.body.city;
+            adoption.relatedEmail = req.body.relatedEmail;
 
             const updatedAdoption = await adoption.save();
             if (updatedAdoption) {
