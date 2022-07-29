@@ -16,15 +16,27 @@ import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import Aside from './components/Aside';
-import AdoptionScreen from "./screens/AdoptionScreen";
+import AdoptionListScreen from "./screens/AdoptionListScreen";
+import AdoptionEditScreen from "./screens/AdoptionEditScreen";
+import AdoptionScreenGeneral from "./screens/AdoptionScreenGeneral";
+import FavoritesScreen from "./screens/FavoritesScreen";
+import CustomizeProductEditScreen from "./screens/CustomizeProductEditScreen";
+import ReturnProductScreen from "./screens/ReturnProductScreen";
+import EvaluateCustomOrderScreen from "./screens/EvaluateCustomOrderScreen";
+import EvaluateOrderScreen from "./screens/EvaluateOrderScreen";
+import CustomizeProductScreen from "./screens/CustomizeProductScreen";
+import CustomizeListScreen from "./screens/CustomizeListScreen.js";
 
 const routes = {
   '/': HomeScreen,
   '/product/:id/edit': ProductEditScreen,
+  '/adoption/:id/edit': AdoptionEditScreen,
+  '/customizeproduct/:id': CustomizeProductEditScreen,
   '/product/:id': ProductScreen,
   '/order/:id': OrderScreen,
   '/cart/:id': CartScreen,
   '/cart': CartScreen,
+  '/customizeproduct': CustomizeProductScreen,
   '/signin': SigninScreen,
   '/register': RegisterScreen,
   '/profile': ProfileScreen,
@@ -33,9 +45,14 @@ const routes = {
   '/placeorder': PlaceOrderScreen,
   '/dashboard': DashboardScreen,
   '/productlist': ProductListScreen,
+  '/adoptionlist': AdoptionListScreen,
   '/orderlist': OrderListScreen,
-  '/adoption' : AdoptionScreen,
-  // '/adoptionDetails' : AdoptionDetailsScreen,
+  '/adoption' : AdoptionScreenGeneral,
+  '/favorites': FavoritesScreen,
+  '/favorites/:id': FavoritesScreen,
+  '/returnproduct': ReturnProductScreen,
+  '/evaluatecustom': CustomizeListScreen,
+  '/evaluateorder/:id': EvaluateOrderScreen,
 };
 const router = async () => {
   showLoading();

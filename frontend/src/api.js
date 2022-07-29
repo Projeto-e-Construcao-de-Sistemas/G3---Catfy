@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { apiUrl } from './config';
 import { getUserInfo } from './localStorage';
+//import sgMail from '@sendgrid/mail';
+//sgMail.setApiKey('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');
 
-export const getProducts = async (searchKeyword = '') => {
+export const getProducts = async ({searchKeyword = ''}) => {
   try {
     let queryString = '?';
-    if (searchKeyword) queryString += `searchKeyword=${searchKeyword}&`;
+    if (searchKeyword) { queryString += `searchKeyword=${searchKeyword}&`; }
 
     const response = await axios({
       url: `${apiUrl}/api/products${queryString}`,
@@ -46,6 +48,28 @@ export const getAdoptions = async (searchKeyword = '') => {
   }
 };
 
+export const getCustomizes = async (searchKeyword = '') => {
+  try {
+    let queryString = '?';
+    if (searchKeyword) queryString += `searchKeyword=${searchKeyword}&`;
+
+    const response = await axios({
+      url: `${apiUrl}/api/customizeproduct${queryString}`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return { error: err.response.data.message || err.message };
+  }
+};
+
 export const getProduct = async (id) => {
   try {
     const response = await axios({
@@ -65,30 +89,89 @@ export const getProduct = async (id) => {
   }
 };
 
-// export const getAdoption = async (id) => {
-//   try {
-//     const response = await axios({
-//       url: `${apiUrl}/api/adoption/${id}`,
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-//     if (response.statusText !== 'OK') {
-//       throw new Error(response.data.message);
-//     }
-//     return response.data;
-//   } catch (err) {
-//     console.log(err);
-//     return { error: err.response.data.message || err.message };
-//   }
-// };
+export const getAdoption = async (id) => {
+  try {
+    const response = await axios({
+      url: `${apiUrl}/api/adoption/${id}`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return { error: err.response.data.message || err.message };
+  }
+};
+
+export const getCustomize = async (id) => {
+  try {
+    const response = await axios({
+      url: `${apiUrl}/api/customizeproduct/${id}`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return { error: err.response.data.message || err.message };
+  }
+};
 
 export const createProduct = async () => {
   try {
     const { token } = getUserInfo();
     const response = await axios({
       url: `${apiUrl}/api/products`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.statusText !== 'Created') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+//TODO: CREATE ADOPTION
+export const createAdoption = async () => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/adoption`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.statusText !== 'Created') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+
+export const createCustomize = async () => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/customizeproduct`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -145,6 +228,46 @@ export const deleteProduct = async (productId) => {
   }
 };
 
+export const deleteAdoption = async (adoptionId) => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/adoption/${adoptionId}`,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+
+export const deleteCustomize = async (customizeId) => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/customizeproduct/${customizeId}`,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+
 export const updateProduct = async (product) => {
   try {
     const { token } = getUserInfo();
@@ -166,7 +289,71 @@ export const updateProduct = async (product) => {
   }
 };
 
+export const updateAdoption = async (adoption) => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/adoption/${adoption._id}`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data: adoption,
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+
+export const updateCustomize = async (customize) => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/customizeproduct/${customize._id}`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data: customize,
+    });
+    if (response.statusText !== 'OK') {
+      throw new Error(response.data.message);
+    }
+    return response.data;
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+
 export const uploadProductImage = async (formData) => {
+  try {
+    const { token } = getUserInfo();
+    const response = await axios({
+      url: `${apiUrl}/api/uploads`,
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      data: formData,
+    });
+    if (response.statusText !== 'Created') {
+      throw new Error(response.data.message);
+    } else {
+      return response.data;
+    }
+  } catch (err) {
+    return { error: err.response.data.message || err.message };
+  }
+};
+
+export const uploadAdoptionImage = async (formData) => {
   try {
     const { token } = getUserInfo();
     const response = await axios({
@@ -425,3 +612,28 @@ export const getSummary = async () => {
     return { error: err.response ? err.response.data.message : err.message };
   }
 };
+
+export const viaCepApi = async (cep) => {
+
+    return axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => {
+          return response.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+};
+
+export const sendMail = async () => {
+
+  fetch("https://api.sendgrid.com/v3/mail/send", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "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"
+    },
+    body: '{"personalizations":[{"to":[{"email":"allanis@edu.unirio.br","name":"Allanis"}],"subject":"teste"}],"content": [{"type": "text/plain", "value": "Heya!"}],"from":{"email":"lojacatfy@gmail.com","name":"catfy"},"reply_to":{"email":"lojacatfy@gmail.com","name":"catfy"}}'
+  });
+};
+
+

@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 import {
   parseRequestUrl,
   showLoading,
@@ -59,7 +61,7 @@ const handlePayment = (clientId, totalPrice) => {
             paymentID: data.paymentID,
           });
           hideLoading();
-          showMessage('Payment was successfull.', () => {
+          showMessage('Pagamento realizado com sucesso.', () => {
             rerender(OrderScreen);
           });
         });
@@ -78,7 +80,7 @@ const OrderScreen = {
         showLoading();
         await deliverOrder(request.id);
         hideLoading();
-        showMessage('Order Delivered.');
+        showMessage('Pedido Entregue.');
         rerender(OrderScreen);
       });
     }
@@ -105,38 +107,38 @@ const OrderScreen = {
     }
     return `
     <div>
-    <h1>Order ${_id}</h1>
+    <h1>Pedido ${_id}</h1>
       <div class="order">
         <div class="order-info">
           <div>
-            <h2>Shipping</h2>
+            <h2>Endereço de Entrega</h2>
             <div>
             ${shipping.address}, ${shipping.city}, ${shipping.postalCode}, 
-            ${shipping.country}
+            ${shipping.uf}
             </div>
             ${
               isDelivered
-                ? `<div class="success">Delivered at ${deliveredAt}</div>`
-                : `<div class="error">Not Delivered</div>`
+                ? `<div class="success">Entregue em ${deliveredAt}</div>`
+                : `<div class="error">Não entregue</div>`
             }
              
           </div>
           <div>
-            <h2>Payment</h2>
+            <h2>Pagamento</h2>
             <div>
-              Payment Method : ${payment.paymentMethod}
+              Metodo de Pagamento : ${payment.paymentMethod}
             </div>
             ${
               isPaid
-                ? `<div class="success">Paid at ${paidAt}</div>`
-                : `<div class="error">Not Paid</div>`
+                ? `<div class="success">Pago em ${paidAt}</div>`
+                : `<div class="error">Não pago</div>`
             }
           </div>
           <div>
             <ul class="cart-list-container">
               <li>
-                <h2>Shopping Cart</h2>
-                <div>Price</div>
+                <h2>Carrinho</h2>
+                <div>Preço</div>
               </li>
               ${orderItems
                 .map(
@@ -149,9 +151,9 @@ const OrderScreen = {
                     <div>
                       <a href="/#/product/${item.product}">${item.name} </a>
                     </div>
-                    <div> Qty: ${item.qty} </div>
+                    <div> Qtd: R${item.qty} </div>
                   </div>
-                  <div class="cart-price"> $${item.price}</div>
+                  <div class="cart-price"> R$${item.price}</div>
                 </li>
                 `
                 )
@@ -162,17 +164,17 @@ const OrderScreen = {
         <div class="order-action">
            <ul>
                 <li>
-                  <h2>Order Summary</h2>
+                  <h2>Resumo do Pedido</h2>
                  </li>
-                 <li><div>Items</div><div>$${itemsPrice}</div></li>
-                 <li><div>Shipping</div><div>$${shippingPrice}</div></li>
-                 <li><div>Tax</div><div>$${taxPrice}</div></li>
-                 <li class="total"><div>Order Total</div><div>$${totalPrice}</div></li>                  
+                 <li><div>Itens</div><div>R$${itemsPrice}</div></li>
+                 <li><div>Entrega</div><div>R$${shippingPrice}</div></li>
+                 <li><div>Taxa</div><div>R$${taxPrice}</div></li>
+                 <li class="total"><div>Total do Pedido</div><div>R$${totalPrice}</div></li>                  
                  <li><div class="fw" id="paypal-button"></div></li>
                  <li>
                  ${
                    isPaid && !isDelivered && isAdmin
-                     ? `<button id="deliver-order-button" class="primary fw">Deliver Order</button>`
+                     ? `<button id="deliver-order-button" class="primary fw">Entregar Pedido</button>`
                      : ''
                  }
                  <li>

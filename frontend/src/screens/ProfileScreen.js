@@ -3,37 +3,37 @@ import { getUserInfo, setUserInfo, clearUser } from '../localStorage';
 import { showLoading, hideLoading, showMessage } from '../utils';
 
 const ProfileScreen = {
-  after_render: () => {
-    document.getElementById('signout-button').addEventListener('click', () => {
-      clearUser();
-      document.location.hash = '/';
-    });
-    document
-      .getElementById('profile-form')
-      .addEventListener('submit', async (e) => {
-        e.preventDefault();
-        showLoading();
-        const data = await update({
-          name: document.getElementById('name').value ? document.getElementById('name').value : alert("Insira um valor válido"),
-          email: document.getElementById('email').value ? document.getElementById('email').value : alert("Insira um valor válido"),
-          password: document.getElementById('password').value,
+    after_render: () => {
+        document.getElementById('signout-button').addEventListener('click', () => {
+            clearUser();
+            document.location.hash = '/';
         });
-        hideLoading();
-        if (data.error) {
-          showMessage(data.error);
-        } else {
-          setUserInfo(data);
-          document.location.hash = '/';
+        document
+            .getElementById('profile-form')
+            .addEventListener('submit', async (e) => {
+                e.preventDefault();
+                showLoading();
+                const data = await update({
+                    name: document.getElementById('name').value ? document.getElementById('name').value : alert("Insira um valor válido"),
+                    email: document.getElementById('email').value ? document.getElementById('email').value : alert("Insira um valor válido"),
+                    password: document.getElementById('password').value,
+                });
+                hideLoading();
+                if (data.error) {
+                    showMessage(data.error);
+                } else {
+                    setUserInfo(data);
+                    document.location.hash = '/';
+                }
+            });
+    },
+    render: async () => {
+        const { name, email } = getUserInfo();
+        if (!name) {
+            document.location.hash = '/';
         }
-      });
-  },
-  render: async () => {
-    const { name, email } = getUserInfo();
-    if (!name) {
-      document.location.hash = '/';
-    }
-    const orders = await getMyOrders();
-    return `
+        const orders = await getMyOrders();
+        return `
     <div class="content profile">
       <div class="profile-info">
       <div class="form-container">
@@ -58,7 +58,7 @@ const ProfileScreen = {
             <button type="submit" class="primary">Atualizar</button>
           </li>
           <li>
-          <button type="button" id="signout-button" >Logout</button>
+          <button type="button" id="signout-button">Logout</button>
         </li>        
         </ul>
       </form>
@@ -79,31 +79,35 @@ const ProfileScreen = {
           </thead>
           <tbody>
             ${
-              orders.length === 0
+            orders.length === 0
                 ? `<tr><td colspan="6">Nenhum pedido encontrado.</tr>`
                 : orders
                     .map(
-                      (order) => `
-          <tr>
-            <td>${order._id}</td>
-            <td>${order.createdAt}</td>
-            <td>${order.totalPrice}</td>
-            <td>${order.paidAt || 'No'}</td>
-            <td>${order.deliveryAt || 'No'}</td>
-            <td><a href="/#/order/${order._id}">DETAILS</a> </td>
-          </tr>
-          `
+                        (order) => `
+                        <tr>
+                          <td>${order._id}</td>
+                          <td>${order.createdAt}</td>
+                          <td>${order.totalPrice}</td>
+                          <td>${order.paidAt || 'Em andamento'}</td>
+                          <td>${order.deliveryAt || 'Em andamento'}</td>
+                          <td>
+                              <a href="/#/order/${order._id}">Detalhes</a> 
+                              <!-- com restrição para pagamento realizado
+                              ${order.paidAt ? `<br><a href="/#/returnProduct">Devolver Produto</a>` : ''}
+                              -->
+                              <br><a href="/#/returnProduct">Devolver Produto</a>
+                          </td>
+                        </tr>
+                        `
                     )
                     .join('\n')
-            }
+        }
           </tbody>
         </table>
       </div>
     </div>
-
-
     
     `;
-  },
+    },
 };
 export default ProfileScreen;

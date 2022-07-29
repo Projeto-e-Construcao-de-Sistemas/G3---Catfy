@@ -12,23 +12,28 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/basir/node-javascript-ecommerce.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/basir/node-javascript-ecommerce/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/basir/node-javascript-ecommerce#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "antd": "^4.21.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.21",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "npm": "^8.12.2",
+    "react-via-cep": "^2.0.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.3",

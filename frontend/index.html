@@ -1,30 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Catfy</title>
-  </head>
-  <body>
-    <div class="overlay" id="loading-overlay">Loading...</div>
-    <div class="overlay" id="message-overlay"></div>
-    <div class="grid-container">
-      <header id="header-container"></header>
-      <aside id="aside-container"></aside>
-      <main id="main-container"></main>
-      <footer>
-        miau miau miau
-      </footer>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+  <title>Catfy</title>
+</head>
+<body>
+<div class="overlay" id="loading-overlay">Loading...</div>
+<div class="overlay" id="message-overlay"></div>
+<div class="grid-container">
+  <header id="header-container"></header>
+  <aside id="aside-container"></aside>
+  <main id="main-container"></main>
+  <footer  style="display:flex; flex-direction: column;">
+
+    <div id = "sg-container" style="background-color:white; color:black; min-width:300px; ">    
+      <p>
+      <label>Enviar e-mail para:</label>
+      </p>
+      <input type="text" id="inputEmail" />
+      <p>
+      <label>Mensagem:</label>
+      </p>
+      <input type="text" id="inputMsg" />
+      <p>
+      <button onclick="sendMail(); document.getElementById('sg-container').style.display='none'">Enviar e-mail</button>
+      </p>
     </div>
-    <script src="main.js"></script>
-  </body>
+    <div>Copyright loja Catfy 2022 - miau miau miau
+      <button 
+      class="btn-discreto" 
+      onclick="document.getElementById('sg-container').style.display='block'">miau</button>
+    </div>
+  </footer>
+</div>
+<script src="main.js"></script>
+</body>
+
+<script>
+  const sendMail = () => {
+    const email = document.getElementById("inputEmail").value;
+    const msg = document.getElementById("inputMsg").value;
+
+    fetch("http://localhost:4004", {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: email,
+        from: "lojacatfy@gmail.com",
+        subject: "Avaliação de pedido de produto personalizado da Loja Catfy.",
+        text: "Avaliação de pedido de produto personalizado da Loja Catfy.",
+        html: "<strong>Olá cliente! </strong>" + msg,
+      }),
+    });
+  };
+</script>
 </html>

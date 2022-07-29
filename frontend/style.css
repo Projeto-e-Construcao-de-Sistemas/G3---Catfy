@@ -6,7 +6,7 @@ html {
 }
 body {
   height: 100vh;
-  font: 1.6rem Helvetica, Arial;
+  font: 1.6rem 'Roboto Condensed', sans-serif;
   margin: 0;
 }
 a {
@@ -34,7 +34,21 @@ button:hover {
 }
 button.primary {
   background-color: #303a91;
+  color: #e0e0e0;
 }
+#sg-container{
+  display:none;
+}
+.btn-discreto{
+  background-color: #303a91;
+  color: #f3a9ce;
+  border:none;
+}
+#flexB {
+  display: flex;
+  justify-content: center;
+}
+
 .overlay {
   display: none;
   position: fixed;
@@ -83,16 +97,32 @@ button.primary {
   height: 100%;
 }
 header {
+  font-family: 'Pacifico', cursive;
   grid-area: header;
-  background-color: #f3a9ce;
-  color: #303a91;
+  background-color: #303a91;
+  color:#f3a9ce;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 3rem;
 }
+.ico {
+  color:#f3a9ce;
+  border:none;
+  vertical-align: middle;
+  background-color: #fefefe;
+}
+.ico:hover {
+  color:#ee78b3;
+  border:none!important;
+  background-color: white!important;
+  transform: scale(1.1);
+}
+.logincadastro{
+  font-family: 'Roboto Condensed', sans-serif;
+}
 header a {
-  color: #303a91;
+  color: #f3a9ce;
   text-decoration: none;
   padding-right: 1rem;
 }
@@ -105,11 +135,12 @@ header a:hover {
   padding-left: 1rem;
 }
 footer {
-  background-color: #f3a9ce;
+  background-color: #303a91;
+  color: #f3a9ce;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #303a91;
+
 }
 /* Products */
 .products {
@@ -387,6 +418,7 @@ td {
   margin: 1rem 0;
 }
 .dashboard-menu {
+  margin-top:10px;
   flex: 1 1 20rem;
   background-color: #f3a9ce;
 }
@@ -474,7 +506,7 @@ form.search-form input[type='text'] {
 form.search-form button {
   float: left;
   width: 40px;
-  background: #303a91;
+  background: #f3a9ce;
 
   border-left: none;
   cursor: pointer;
@@ -561,4 +593,52 @@ ul.categories {
 .review li {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
+}
+
+.bg {
+  background-color: #d6c6bc;
+}
+
+#fundo { /* conteudo das pgs fica aqui */
+  margin: auto;
+  padding: 1%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#breve-resumo {
+  max-width: 80%;
+  margin: auto;
+  padding: 1%;
+  box-sizing: border-box;
+  background-color: #e3dcd8;
+  overflow: hidden;
+  border-radius: 20px;
+  word-wrap: break-word;
+}
+
+#guias {
+  float: left;
+  width: 30%;
+  margin-left: 5%;
+}
+
+#infos {
+  float: right;
+  margin-right: 10%;
+}
+
+.centro {
+  text-align: center;
+}
+
+.espacamento {
+  margin: 3%;
+}
+
+.imagens {
+  border-radius: 50%;
+  box-shadow: 5px 5px 50px black;
+  display: block;
+  margin: auto;
 }

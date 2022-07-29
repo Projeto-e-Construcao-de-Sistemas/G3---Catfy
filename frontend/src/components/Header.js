@@ -1,5 +1,6 @@
 import { getUserInfo } from '../localStorage';
 import { parseRequestUrl } from '../utils';
+import HomeScreen from '../screens/HomeScreen.js';
 
 const Header = {
   render: () => {
@@ -15,20 +16,21 @@ const Header = {
   </div>
   <div class="search">
   <form class="search-form"  id="search-form">
-    <input type="text" name="q" id="q" value="${value || ''}" /> 
+    <input type="text" name="q" id="q" value="${value || ''}" placeholder="Pesquisar produto" /> 
     <button type="submit"><i class="fa fa-search"></i></button>
   </form>        
   </div>
   <div>
   ${
     name
-      ? `<a href="/#/profile">${name}</a>`
-      : `<a href="/#/signin">Login</a>`
+      ? `<a href="/#/profile" class="logincadastro">${name}</a>`
+      : `<a href="/#/signin" class="logincadastro">Login</a>`
   }    
-    <a href="/#/adoption">Adoção</a>
-    <a href="/#/cart">Favoritos</a>
-    <a href="/#/cart">Carrinho</a>
-    ${isAdmin ? `<a href="/#/dashboard">Painel de Controle</a>` : ''}
+    <a href="/#/adoption" class="logincadastro">Adoção</a>
+    <a href="/#/customizeproduct" class="logincadastro">Produto personalizado</a>
+    <a href="/#/favorites" class="logincadastro">Favoritos</a>
+    <a href="/#/cart" class="logincadastro">Carrinho</a>
+    ${isAdmin ? `<a href="/#/dashboard" class="logincadastro">Painel de Controle</a>` : ''}
   </div>`;
   },
   after_render: () => {

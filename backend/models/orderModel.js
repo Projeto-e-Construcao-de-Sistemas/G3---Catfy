@@ -18,9 +18,10 @@ const orderSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     shipping: {
       address: String,
+      complemento: String,
       city: String,
       postalCode: String,
-      country: String,
+      uf: String,
     },
     payment: {
       paymentMethod: String,

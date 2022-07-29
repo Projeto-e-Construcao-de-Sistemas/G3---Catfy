@@ -43,9 +43,9 @@ productRouter.post(
     if (createdProduct) {
       res
         .status(201)
-        .send({ message: 'Product Created', product: createdProduct });
+        .send({ message: 'Produto inserido', product: createdProduct });
     } else {
-      res.status(500).send({ message: 'Error in creating product' });
+      res.status(500).send({ message: 'Erro ao inserir produto' });
     }
   })
 );
@@ -66,12 +66,12 @@ productRouter.put(
       product.description = req.body.description;
       const updatedProduct = await product.save();
       if (updatedProduct) {
-        res.send({ message: 'Product Updated', product: updatedProduct });
+        res.send({ message: 'Produto atualizado', product: updatedProduct });
       } else {
-        res.status(500).send({ message: 'Error in updaing product' });
+        res.status(500).send({ message: 'Erro ao atualizar produto' });
       }
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Produto não encontrado' });
     }
   })
 );
@@ -83,9 +83,9 @@ productRouter.delete(
     const product = await Product.findById(req.params.id);
     if (product) {
       const deletedProduct = await product.remove();
-      res.send({ message: 'Product Deleted', product: deletedProduct });
+      res.send({ message: 'Produto deletado', product: deletedProduct });
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Produto não encontrado' });
     }
   })
 );
@@ -109,11 +109,11 @@ productRouter.post(
       product.numReviews = product.reviews.length;
       const updatedProduct = await product.save();
       res.status(201).send({
-        message: 'Comment Created.',
+        message: 'Comentário adicionado.',
         data: updatedProduct.reviews[updatedProduct.reviews.length - 1],
       });
     } else {
-      throw Error('Product does not exist.');
+      throw Error('Produto não existe.');
     }
   })
 );

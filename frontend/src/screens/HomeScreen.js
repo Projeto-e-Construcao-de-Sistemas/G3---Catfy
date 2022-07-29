@@ -21,17 +21,16 @@ const HomeScreen = {
             <img src="${product.image}" alt="${product.name}" />
           </a>
         <div class="product-name">
-          <a href="/#/product/1">
+          <a href="/#/product/${product._id}">
             ${product.name}
           </a>
         </div>
-        <!-- todo: reviews
         <div class="product-rating">
           ${Rating.render({
             value: product.rating,
-            text: `${product.numReviews} reviews`,
+            text: `${product.numReviews} avaliações`,
           })}
-        </div> -->
+        </div> 
         <div class="product-brand">
           ${product.brand}
         </div>

@@ -1,3 +1,4 @@
+// carrinho de compras
 export const getCartItems = () => {
   const cartItems = localStorage.getItem('cartItems')
     ? JSON.parse(localStorage.getItem('cartItems'))
@@ -7,6 +8,19 @@ export const getCartItems = () => {
 export const setCartItems = (cartItems) => {
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 };
+
+// favoritos
+export const getFavoritesItems = () => {
+  const favoritesItems = localStorage.getItem('favoritesItems')
+    ? JSON.parse(localStorage.getItem('favoritesItems'))
+    : [];
+  return favoritesItems;
+};
+export const setFavoritesItems = (favoritesItems) => {
+  localStorage.setItem('favoritesItems', JSON.stringify(favoritesItems));
+};
+
+// usuarios
 export const setUserInfo = ({
   _id = '',
   name = '',
@@ -40,21 +54,22 @@ export const getShipping = () => {
     ? JSON.parse(localStorage.getItem('shipping'))
     : {
         address: '',
+          complemento: '',
         city: '',
         postalCode: '',
-        country: '',
+        uf: '',
       };
   return shipping;
 };
 export const setShipping = ({
-  address = '',
+  address = '', complemento = '',
   city = '',
   postalCode = '',
-  country = '',
+  uf = '',
 }) => {
   localStorage.setItem(
     'shipping',
-    JSON.stringify({ address, city, postalCode, country })
+    JSON.stringify({ address, complemento, city, postalCode, uf })
   );
 };
 
@@ -71,4 +86,7 @@ export const setPayment = ({ paymentMethod = 'paypal' }) => {
 };
 export const cleanCart = () => {
   localStorage.removeItem('cartItems');
+};
+export const cleanFavorites = () => {
+  localStorage.removeItem('favoritesItems');
 };
